@@ -1,11 +1,35 @@
-NAME : megaphone
-CFLAGS : -Wall -Wextra -Werror -std=c++98
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/10 02:50:14 by sbouheni          #+#    #+#              #
+#    Updated: 2023/11/10 03:14:13 by sbouheni         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRC : megaphone.cpp
+NAME 			= megaphone
+CXX				= g++
+CXXFLAGS		= -Wall -Wextra -Werror -std=c++98
+SRCS			= megaphone.cpp
+OBJS			= $(SRCS:.cpp=.o)
 
-OBJ : $(SRC:.cpp=.o)
+all				: $(NAME)
 
-all : $(NAME)
+$(NAME)			: $(OBJS)
+					@$(CXX) $(OBJS) -o $(NAME)
 
-$(NAME) : $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o $(NAME)
+%.o				: %.cpp
+					$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+clean			:
+					rm -rf $(OBJS)
+
+fclean			: clean
+					rm -rf $(NAME)
+
+re				: fclean all
+
+.PHONY			: all clean fclean re
