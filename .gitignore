@@ -1,5 +1,2 @@
-*
-!*/Makefile
-!*/*.cpp
-!*/*.h
-!.gitignore
+*.o
+.vscode/
