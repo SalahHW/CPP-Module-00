@@ -11,35 +11,38 @@
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 
-# define CONTACT_MAX 8
-# define FIELD_SIZE 10
-# define FIELD_SEPARATOR '|'
-# define FIELD_EDGE '|'
+#define CONTACT_MAX 2
+#define FIELD_SIZE 10
+#define FIELD_SEPARATOR '|'
+#define FIELD_EDGE '|'
 
-# include "Contact.hpp"
-# include <iomanip>
-# include <iostream>
-# include <string>
-# include <sstream>
+#include "Contact.hpp"
+#include "utils.hpp"
 
-class PhoneBook
-{
-	Contact contacts[CONTACT_MAX];
-	int contact_count;
-	int GetNextIndex(void);
-	std::string GetUserInput(std::string message);
-	int GetUserIndex(void);
-	void PrintHeader(void);
-	void PrintContact(int index);
-	void PrintContactList(void);
+#include <iomanip>
+#include <iostream>
+#include <sstream>
+#include <string>
 
-  public:
-	PhoneBook(void);
-	// ~PhoneBook(void);
-	void AddContact(void);
-	void SearchContact(void);
+
+
+class PhoneBook {
+  Contact contacts[CONTACT_MAX];
+  int contact_count;
+  int GetNextIndex(void);
+  std::string GetUserInput(std::string message);
+  int GetUserIndex(void);
+  void PrintHeader(void);
+  void PrintContact(int index);
+  void PrintContactList(void);
+
+ public:
+  PhoneBook(void);
+  // ~PhoneBook(void);
+  void AddContact(void);
+  void SearchContact(void);
 };
 
 #endif
