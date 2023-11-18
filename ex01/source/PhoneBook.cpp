@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:08:37 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/18 13:41:08 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/18 13:55:51 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,25 @@ void PhoneBook::PrintContact(int index)
 	std::cout << "Darkest secret: " << this->contacts[index].GetDarkestSecret() << std::endl;
 }
 
+std::string PhoneBook::TruncatedString(std::string str)
+{
+	if (str.length() > FIELD_SIZE)
+		return (str.substr(0, FIELD_SIZE - 1) + '.');
+	return (str);
+}
+
 void PhoneBook::PrintContactList(void)
 {
 	for (int i = 0; i < this->contact_count && i < CONTACT_MAX; i++)
 	{
-		std::cout << FIELD_EDGE <<
-			std::setw(FIELD_SIZE) <<
-			this->contacts[i].GetIndex() + 1 <<
+		std::cout << FIELD_EDGE << std::setw(FIELD_SIZE) <<
+			this->contacts[i].GetIndex() + 1 << 
 			FIELD_SEPARATOR << std::setw(FIELD_SIZE) <<
-			this->contacts[i].GetFirstName() <<
+			TruncatedString(this->contacts[i].GetFirstName()) <<
 			FIELD_SEPARATOR << std::setw(FIELD_SIZE) <<
-			this->contacts[i].GetLastName() << FIELD_SEPARATOR <<
-			std::setw(FIELD_SIZE) << this->contacts[i].GetNickname() <<
+			TruncatedString(this->contacts[i].GetLastName()) << 
+			FIELD_SEPARATOR << std::setw(FIELD_SIZE) <<
+			TruncatedString(this->contacts[i].GetNickname()) <<
 			FIELD_EDGE << std::endl;
 	}
 }

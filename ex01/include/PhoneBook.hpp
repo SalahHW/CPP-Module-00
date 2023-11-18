@@ -6,14 +6,14 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 22:52:54 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/18 11:04:37 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/18 14:00:15 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
-# define CONTACT_MAX 2
+# define CONTACT_MAX 8
 # define FIELD_SIZE 10
 # define FIELD_SEPARATOR '|'
 # define FIELD_EDGE '|'
@@ -31,6 +31,7 @@ class PhoneBook
 	int contact_count;
 	int next_index;
 	std::string GetUserInput(std::string message);
+	std::string TruncatedString(std::string);
 	bool IsValidInput(std::string str);
 	int GetUserIndex(void);
 	void GetNextIndex(void);
