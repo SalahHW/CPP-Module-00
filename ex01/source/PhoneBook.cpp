@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:08:37 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/18 10:47:55 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/18 13:41:08 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,26 @@ void PhoneBook::PrintHelp()
 std::string PhoneBook::GetUserInput(std::string message)
 {
 	std::string input;
-	while (input.empty())
+	while (input.empty() || !IsValidInput(input))
 	{
 		std::cout << message;
 		std::getline(std::cin, input);
-		if (input.empty())
+		if (input.empty() || !IsValidInput(input))
 			std::cout << "Invalid input" << std::endl;
 	}
 	return (input);
+}
+
+bool PhoneBook::IsValidInput(std::string str)
+{
+	int str_len = str.length();
+
+	for (int i = 0; i < str_len; i++)
+	{
+		if (str.find('\033') != std::string::npos)
+			return (false);
+	}
+	return (true);
 }
 
 int PhoneBook::GetUserIndex(void)

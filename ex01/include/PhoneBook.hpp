@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 22:52:54 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/18 10:20:46 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/18 11:04:37 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class PhoneBook
 	int contact_count;
 	int next_index;
 	std::string GetUserInput(std::string message);
+	bool IsValidInput(std::string str);
 	int GetUserIndex(void);
 	void GetNextIndex(void);
 	void PrintHeader(void);
