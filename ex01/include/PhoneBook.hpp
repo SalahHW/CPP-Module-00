@@ -6,43 +6,44 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 22:52:54 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/16 08:27:18 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/18 10:20:46 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
-#define CONTACT_MAX 2
-#define FIELD_SIZE 10
-#define FIELD_SEPARATOR '|'
-#define FIELD_EDGE '|'
+# define CONTACT_MAX 2
+# define FIELD_SIZE 10
+# define FIELD_SEPARATOR '|'
+# define FIELD_EDGE '|'
 
-#include "Contact.hpp"
-#include "utils.hpp"
+# include "Contact.hpp"
+# include "utils.hpp"
+# include <iomanip>
+# include <iostream>
+# include <sstream>
+# include <string>
 
-#include <iomanip>
-#include <iostream>
-#include <sstream>
-#include <string>
+class PhoneBook
+{
+	Contact contacts[CONTACT_MAX];
+	int contact_count;
+	int next_index;
+	std::string GetUserInput(std::string message);
+	int GetUserIndex(void);
+	void GetNextIndex(void);
+	void PrintHeader(void);
+	void PrintContact(int index);
+	void PrintContactList(void);
+	void PrintPhoneBook(void);
 
-
-
-class PhoneBook {
-  Contact contacts[CONTACT_MAX];
-  int contact_count;
-  int GetNextIndex(void);
-  std::string GetUserInput(std::string message);
-  int GetUserIndex(void);
-  void PrintHeader(void);
-  void PrintContact(int index);
-  void PrintContactList(void);
-
- public:
-  PhoneBook(void);
-  // ~PhoneBook(void);
-  void AddContact(void);
-  void SearchContact(void);
+  public:
+	PhoneBook(void);
+	// ~PhoneBook(void);
+	void PrintHelp(void);
+	void AddContact(void);
+	void SearchContact(void);
 };
 
 #endif

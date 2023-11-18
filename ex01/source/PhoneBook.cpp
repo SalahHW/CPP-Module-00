@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:08:37 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/18 07:31:34 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/18 10:47:55 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 PhoneBook::PhoneBook(void)
 {
 	this->contact_count = 0;
+	next_index = -1;
+}
+
+void PhoneBook::PrintHelp()
+{
+	std::cout << "ADD	: Add a new contact" << std::endl;
+	std::cout << "SEARCH	: Search a contact" << std::endl;
+	std::cout << "EXIT	: Exit the program" << std::endl;
 }
 
 std::string PhoneBook::GetUserInput(std::string message)
@@ -34,8 +42,15 @@ int PhoneBook::GetUserIndex(void)
 {
 	int	index;
 
-	index = utils::get_user_input_as_int("Please enter an index");
-	return (index);
+	index = utils::get_user_input_as_int("Please enter an index: ");
+	std::cout << index << std::endl;
+	while (index < 1 || index > this->contact_count || index > CONTACT_MAX)
+	{
+		std::cout << "Wrong index" << std::endl;
+		this->PrintPhoneBook();
+		index = utils::get_user_input_as_int("Please enter a valid index: ");
+	}
+	return (index - 1);
 }
 
 void PhoneBook::PrintHeader(void)
@@ -48,13 +63,31 @@ void PhoneBook::PrintHeader(void)
 		"Nickname" << FIELD_EDGE << std::endl;
 }
 
+
+void PhoneBook::PrintPhoneBook(void)
+{
+	this->PrintHeader();
+	this->PrintContactList();
+	this->PrintHeader();
+}
+
+void PhoneBook::PrintContact(int index)
+{
+	std::cout << "Index: " << this->contacts[index].GetIndex() + 1 << std::endl;
+	std::cout << "First name: " << this->contacts[index].GetFirstName() << std::endl;
+	std::cout << "Last name: " << this->contacts[index].GetLastName() << std::endl;
+	std::cout << "Nickname: " << this->contacts[index].GetNickname() << std::endl;
+	std::cout << "Phone number: " << this->contacts[index].GetPhoneNumber() << std::endl;
+	std::cout << "Darkest secret: " << this->contacts[index].GetDarkestSecret() << std::endl;
+}
+
 void PhoneBook::PrintContactList(void)
 {
-	for (int i = 0; i < this->contact_count; i++)
+	for (int i = 0; i < this->contact_count && i < CONTACT_MAX; i++)
 	{
 		std::cout << FIELD_EDGE <<
 			std::setw(FIELD_SIZE) <<
-			this->contacts[i].GetIndex() <<
+			this->contacts[i].GetIndex() + 1 <<
 			FIELD_SEPARATOR << std::setw(FIELD_SIZE) <<
 			this->contacts[i].GetFirstName() <<
 			FIELD_SEPARATOR << std::setw(FIELD_SIZE) <<
@@ -64,27 +97,16 @@ void PhoneBook::PrintContactList(void)
 	}
 }
 
-void PhoneBook::PrintContact(int index)
-{
-	std::cout << "Index: " << this->contacts[index].GetIndex() << std::endl;
-	std::cout << "First name: " << this->contacts[index].GetFirstName() << std::endl;
-	std::cout << "Last name: " << this->contacts[index].GetLastName() << std::endl;
-	std::cout << "Nickname: " << this->contacts[index].GetNickname() << std::endl;
-	std::cout << "Phone number: " << this->contacts[index].GetPhoneNumber() << std::endl;
-	std::cout << "Darkest secret: " << this->contacts[index].GetDarkestSecret() << std::endl;
-}
-
 void PhoneBook::SearchContact(void)
 {
 	int	index;
 
 	if (this->contact_count == 0)
 	{
-		std::cout << "No contact to search" << std::endl;
+		std::cout << "Phone book is empty" << std::endl;
 		return ;
 	}
-	PrintHeader();
-	PrintContactList();
+	this->PrintPhoneBook();
 	std::cout << "Which contact would you display ?" << std::endl;
 	index = this->GetUserIndex();
 	this->PrintContact(index);
@@ -93,7 +115,6 @@ void PhoneBook::SearchContact(void)
 void PhoneBook::AddContact(void)
 {
 	Contact	new_contact;
-	int		index;
 
 	std::string input;
 	input = this->GetUserInput("Please enter the first name: ");
@@ -106,16 +127,15 @@ void PhoneBook::AddContact(void)
 	new_contact.SetPhoneNumber(input);
 	input = this->GetUserInput("Please enter the darkest secret: ");
 	new_contact.SetDarkestSecret(input);
-	index = this->GetNextIndex();
-	new_contact.SetIndex(index);
-	this->contacts[index - 1] = new_contact;
+	GetNextIndex();
+	new_contact.SetIndex(next_index);
+	contacts[next_index] = new_contact;
 	this->contact_count++;
 }
 
-int PhoneBook::GetNextIndex(void)
+void PhoneBook::GetNextIndex(void)
 {
-	if (this->contact_count < CONTACT_MAX)
-		return (this->contact_count + 1);
-	else
-		return (this->contact_count % CONTACT_MAX + 1);
+	next_index++;
+	if (next_index == CONTACT_MAX)
+		next_index = 0;
 }
