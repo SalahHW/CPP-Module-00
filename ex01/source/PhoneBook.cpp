@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:08:37 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/18 13:55:51 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:39:15 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool PhoneBook::IsValidInput(std::string str)
 
 	for (int i = 0; i < str_len; i++)
 	{
-		if (str.find('\033') != std::string::npos)
+		if (str[i] == '\t' || str.find('\033') != std::string::npos)
 			return (false);
 	}
 	return (true);
