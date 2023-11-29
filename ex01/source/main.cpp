@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 05:07:05 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/18 08:37:09 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:34:37 by joakoeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(void)
 {
 	PhoneBook PhoneBook;
 	std::string input;
-	while (input != "EXIT")
+	while (input != "EXIT" && !std::cin.eof())
 	{
 		std::cout << "Please enter a command: ";
 		std::getline(std::cin, input);

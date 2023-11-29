@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:08:37 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/29 13:39:15 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:08:23 by joakoeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void PhoneBook::PrintHelp()
 std::string PhoneBook::GetUserInput(std::string message)
 {
 	std::string input;
-	while (input.empty() || !IsValidInput(input))
+	while ((input.empty() || !IsValidInput(input)) && !std::cin.eof())
 	{
 		std::cout << message;
 		std::getline(std::cin, input);
@@ -55,8 +55,7 @@ int PhoneBook::GetUserIndex(void)
 	int	index;
 
 	index = utils::get_user_input_as_int("Please enter an index: ");
-	std::cout << index << std::endl;
-	while (index < 1 || index > this->contact_count || index > CONTACT_MAX)
+	while ((index < 1 || index > this->contact_count || index > CONTACT_MAX) && !std::cin.eof())
 	{
 		std::cout << "Wrong index" << std::endl;
 		this->PrintPhoneBook();
@@ -85,6 +84,8 @@ void PhoneBook::PrintPhoneBook(void)
 
 void PhoneBook::PrintContact(int index)
 {
+	if (std::cin.eof())
+		return ;
 	std::cout << "Index: " << this->contacts[index].GetIndex() + 1 << std::endl;
 	std::cout << "First name: " << this->contacts[index].GetFirstName() << std::endl;
 	std::cout << "Last name: " << this->contacts[index].GetLastName() << std::endl;
