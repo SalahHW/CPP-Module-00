@@ -6,7 +6,7 @@
 /*   By: sbouheni <sbouheni@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 02:08:38 by sbouheni          #+#    #+#             */
-/*   Updated: 2023/11/11 05:45:12 by sbouheni         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:58:44 by sbouheni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	print_in_upper_case(char **str)
 			std::cout << (char)std::toupper(str[i][j]);
 			j++;
 		}
-		if (str[i + 1])
+		if (!str[i + 1])
 			std::cout << std::endl;
 	}
 }
